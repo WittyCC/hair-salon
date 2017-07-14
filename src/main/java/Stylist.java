@@ -52,6 +52,15 @@ public class Stylist {
     }
   }
 
+  public List<Client> getClients() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM clients where stylistId=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeAndFetch(Client.class);
+    }
+  }
+
   @Override
   public boolean equals(Object otherStylist){
     if (!(otherStylist instanceof Stylist)) {
