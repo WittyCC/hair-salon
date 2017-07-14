@@ -148,6 +148,5 @@ public class App {
       response.redirect("/stylists/" + stylistid);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
   }
 }
