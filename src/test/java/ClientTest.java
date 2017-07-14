@@ -44,4 +44,28 @@ public class MonsterTest {
     assertTrue(testClient.equals(anotherClient));
   }
 
+  @Test
+  public void save_returnsTrueIfNamesAretheSame() {
+    Client testClient = new Client("Vain Valerie", 1);
+    testClient.save();
+    assertTrue(Client.all().get(0).equals(testClient));
+  }
+
+  @Test
+  public void save_assignsIdToClient() {
+    Client testClient = new Client("Vain Valerie", 1);
+    testClient.save();
+    Client savedClient = Client.all().get(0);
+    assertEquals(savedClient.getId(), testClient.getId());
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfClient_true() {
+    Client firstClient = new Client("Vain Valerie", 1);
+    firstClient.save();
+    Client secondClient = new Client("Narcissistic Nate", 1);
+    secondClient.save();
+    assertEquals(true, Client.all().get(0).equals(firstClient));
+    assertEquals(true, Client.all().get(1).equals(secondClient));
+  }
 }
