@@ -5,12 +5,12 @@ import java.util.List;
 public class Client {
   private String name;
   private String contact;
-  private int stylistId;
+  private int stylistid;
   private int id;
 
-  public Client(String name, int stylistId) {
+  public Client(String name, int stylistid) {
     this.name = name;
-    this.stylistId = stylistId;
+    this.stylistid = stylistid;
   }
 
   public String getName() {
@@ -22,7 +22,7 @@ public class Client {
   }
 
   public int getStylistId() {
-    return stylistId;
+    return stylistid;
   }
 
   public int getId() {
@@ -38,10 +38,10 @@ public class Client {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO clients (name, stylistId) VALUES (:name, :stylistId)";
+      String sql = "INSERT INTO clients (name, stylistid) VALUES (:name, :stylistid)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
-        .addParameter("stylistId", this.stylistId)
+        .addParameter("stylistid", this.stylistid)
         .executeUpdate()
         .getKey();
     }
