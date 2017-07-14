@@ -1,5 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
+import org.sql2o.*;
 
 public class StylistTest {
 
@@ -21,4 +22,17 @@ public class StylistTest {
     assertEquals("Brazilian Blowouts", testStylist.getExpertise());
   }
 
+  @Test
+  public void equals_returnsTrueIfNameAndEmailAreSame_true() {
+    Stylist firstStylist = new Stylist("Henry", "Brazilian Blowouts");
+    Stylist anotherStylist = new Stylist("Henry", "Brazilian Blowouts");
+    assertTrue(firstStylist.equals(anotherStylist));
+  }
+
+  @Test
+  public void save_insertsObjectIntoDatabase_Stylist() {
+    Stylist testStylist = new Stylist("Henry", "Brazilian Blowouts");
+    testStylist.save();
+    assertTrue(Stylist.all().get(0).equals(testStylist));
+  }
 }
