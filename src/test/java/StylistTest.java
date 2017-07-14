@@ -4,6 +4,19 @@ import org.sql2o.*;
 
 public class StylistTest {
 
+  @Before
+  public void setUp() {
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/hair_salon_test", "postgres", null);
+  }
+
+  @After
+  public void tearDown() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteStylistsQuery = "DELETE FROM stylists *;";
+      con.createQuery(deleteStylistsQuery).executeUpdate();
+    }
+  }
+
   @Test
   public void stylist_instantiatesCorrectly_true() {
     Stylist testStylist = new Stylist("Henry", "Brazilian Blowouts");
@@ -34,5 +47,15 @@ public class StylistTest {
     Stylist testStylist = new Stylist("Henry", "Brazilian Blowouts");
     testStylist.save();
     assertTrue(Stylist.all().get(0).equals(testStylist));
+  }
+
+  @Test
+  public void all_returnsAllInstancesOfStylist_true() {
+    Stylist firstStylist = new Stylist("Henry", "Brazilian Blowouts");
+    firstStylist.save();
+    Stylist secondStylist = new Stylist("Harriet", "Precision Haircuts");
+    secondStylist.save();
+    assertEquals(true, Stylist.all().get(0).equals(firstStylist));
+    assertEquals(true, Stylist.all().get(1).equals(secondStylist));
   }
 }
