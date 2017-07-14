@@ -12,7 +12,9 @@ public class StylistTest {
   @After
   public void tearDown() {
     try(Connection con = DB.sql2o.open()) {
+      String deleteClientsQuery = "DELETE FROM clients *;";
       String deleteStylistsQuery = "DELETE FROM stylists *;";
+      con.createQuery(deleteClientsQuery).executeUpdate();
       con.createQuery(deleteStylistsQuery).executeUpdate();
     }
   }
