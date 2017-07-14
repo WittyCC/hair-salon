@@ -25,4 +25,23 @@ public class MonsterTest {
     assertEquals(true, testClient instanceof Client);
   }
 
+  @Test
+  public void Client_instantiatesWithName_String() {
+    Client testClient = new Client("Vain Valerie", 1);
+    assertEquals("Vain Valerie", testClient.getName());
+  }
+
+  @Test
+  public void Client_instantiatesWithStylistId_int() {
+    Client testClient = new Client("Vain Valerie", 1);
+    assertEquals(1, testClient.getStylistId());
+  }
+
+  @Test
+  public void equals_returnsTrueIfNameAndStylistIdAreSame_true() {
+    Client testClient = new Client("Vain Valerie", 1);
+    Client anotherClient = new Client("Vain Valerie", 1);
+    assertTrue(testClient.equals(anotherClient));
+  }
+
 }
