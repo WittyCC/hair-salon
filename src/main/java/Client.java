@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Client {
   private String name;
+  private String contact;
   private int stylistId;
   private int id;
 
@@ -14,6 +15,10 @@ public class Client {
 
   public String getName() {
     return name;
+  }
+
+  public String getContact() {
+    return contact;
   }
 
   public int getStylistId() {
