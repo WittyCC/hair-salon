@@ -68,4 +68,13 @@ public class MonsterTest {
     assertEquals(true, Client.all().get(0).equals(firstClient));
     assertEquals(true, Client.all().get(1).equals(secondClient));
   }
+
+  @Test
+  public void find_returnsClientWithSameId_secondClient() {
+    Client firstClient = new Client("Vain Valerie", 1);
+    firstClient.save();
+    Client secondClient = new Client("Narcissistic Nate", 3);
+    secondClient.save();
+    assertEquals(Client.find(secondClient.getId()), secondClient);
+  }
 }
