@@ -77,4 +77,14 @@ public class MonsterTest {
     secondClient.save();
     assertEquals(Client.find(secondClient.getId()), secondClient);
   }
+
+  @Test
+  public void save_savesStylistIdIntoDB_true() {
+    Stylist testStylist = new Stylist("Henry", "Brazilian Blowouts");
+    testStylist.save();
+    Client testClient = new Client("Vain Valerie", testClient.getId());
+    testClient.save();
+    Client savedClient = Client.find(testClient.getId());
+    assertEquals(savedClient.getStylistId(), testStylist.getId());
+  }
 }
