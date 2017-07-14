@@ -25,7 +25,7 @@ This is a program that allows a hair salon manager to execute various tasks rela
 
 ## Database Schema
 
-![database diagram](hair salon schema.png)
+![database diagram](schema.png)
 
   ## What's Included
 
