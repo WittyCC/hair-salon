@@ -1,4 +1,4 @@
-# Team Tracker
+# Hair Salon
 
 #### _A Hair Salon Web Application for Epicodus Java Week 3 Independent Project, July 14, 2017_
 
