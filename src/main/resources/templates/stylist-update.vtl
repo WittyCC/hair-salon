@@ -1,0 +1,19 @@
+<h1>Update Stylist: $stylist.getName()</h1>
+
+<form action="/stylists/$stylist.getId()/update" method="post">
+
+  <div class="form-group">
+    <label for="name">Stylist Name</label>
+    <input type="text" name="name" value="$stylist.getName()" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="expertise">Expertise</label>
+    <input type="text" name="expertise" value="$stylist.getExpertise()" class="form-control" required>
+  </div>
+
+  <button class="btn btn-info" type="submit" name="update">Update</button>
+
+  <a href="/stylists/$stylist.getId()/delete"><button class="btn btn-danger" type="button" name="delete">Delete</button></a>
+
+</form>

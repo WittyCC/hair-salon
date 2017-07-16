@@ -13,9 +13,7 @@ public class MonsterTest {
   public void tearDown() {
     try(Connection con = DB.sql2o.open()) {
       String deleteClientsQuery = "DELETE FROM clients *;";
-      String deleteStylistsQuery = "DELETE FROM stylists *;";
       con.createQuery(deleteClientsQuery).executeUpdate();
-      con.createQuery(deleteStylistsQuery).executeUpdate();
     }
   }
 
@@ -27,7 +25,7 @@ public class MonsterTest {
 
   @Test
   public void Client_instantiatesWithName_String() {
-    Client testClient = new Client("Vain Valerie", 1);
+    Client testClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     assertEquals("Vain Valerie", testClient.getName());
   }
 
@@ -39,21 +37,21 @@ public class MonsterTest {
 
   @Test
   public void equals_returnsTrueIfNameAndStylistIdAreSame_true() {
-    Client testClient = new Client("Vain Valerie", 1);
-    Client anotherClient = new Client("Vain Valerie", 1);
+    Client testClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
+    Client anotherClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     assertTrue(testClient.equals(anotherClient));
   }
 
   @Test
   public void save_returnsTrueIfNamesAretheSame() {
-    Client testClient = new Client("Vain Valerie", 1);
+    Client testClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     testClient.save();
     assertTrue(Client.all().get(0).equals(testClient));
   }
 
   @Test
   public void save_assignsIdToClient() {
-    Client testClient = new Client("Vain Valerie", 1);
+    Client testClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     testClient.save();
     Client savedClient = Client.all().get(0);
     assertEquals(savedClient.getId(), testClient.getId());
@@ -61,9 +59,9 @@ public class MonsterTest {
 
   @Test
   public void all_returnsAllInstancesOfClient_true() {
-    Client firstClient = new Client("Vain Valerie", 1);
+    Client firstClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     firstClient.save();
-    Client secondClient = new Client("Narcissistic Nate", 1);
+    Client secondClient = new Client("Narcissistic Nate", "206-XXX-XXXX", 1);
     secondClient.save();
     assertEquals(true, Client.all().get(0).equals(firstClient));
     assertEquals(true, Client.all().get(1).equals(secondClient));
@@ -71,9 +69,9 @@ public class MonsterTest {
 
   @Test
   public void find_returnsClientWithSameId_secondClient() {
-    Client firstClient = new Client("Vain Valerie", 1);
+    Client firstClient = new Client("Vain Valerie", "206-XXX-XXXX", 1);
     firstClient.save();
-    Client secondClient = new Client("Narcissistic Nate", 3);
+    Client secondClient = new Client("Narcissistic Nate", "206-XXX-XXXX", 3);
     secondClient.save();
     assertEquals(Client.find(secondClient.getId()), secondClient);
   }
@@ -82,9 +80,14 @@ public class MonsterTest {
   public void save_savesStylistIdIntoDB_true() {
     Stylist testStylist = new Stylist("Henry", "Brazilian Blowouts");
     testStylist.save();
-    Client testClient = new Client("Vain Valerie", testClient.getId());
+    Client testClient = new Client("Vain Valerie", "206-XXX-XXXX", testClient.getId());
     testClient.save();
     Client savedClient = Client.find(testClient.getId());
     assertEquals(savedClient.getStylistId(), testStylist.getId());
+  }
+
+  @Test
+  public void Client_showAssignedClientsToStylist_ArrayList() {
+    assertTrue(Client.assigned(1).size() > 0);
   }
 }

@@ -1,0 +1,19 @@
+<h1>Update Client Information: $client.getName()</h1>
+
+<form action="/stylists/$stylist.getId()/clients/$client.getId()/update" method="post">
+  <input type="hidden" name="stylistid" value="$stylist.getId()">
+
+  <div class="form-group">
+    <label for="name">Client Name</label>
+    <input type="text" name="name" class="form-control" value="$client.getName()" required>
+  </div>
+
+  <div class="form-group">
+    <label for="contact">Contact Info</label>
+    <input type="text" name="contact" class="form-control" value="$client.getContact()" required>
+  </div>
+
+  <button class="btn btn-info" type="submit" name="update">Update</button>
+  
+  <a href="/stylists/$client.getStylistId()/clients/$client.getId()/delete"><button class="btn btn-danger" type="button" name="delete">Delete</button></a>
+</form>

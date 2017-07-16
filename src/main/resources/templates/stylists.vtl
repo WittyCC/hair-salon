@@ -1,0 +1,15 @@
+<h1 class="title">Stylists</h1>
+
+#foreach ($stylist in $stylists)
+  <a href="/stylists/$stylist.getId()"><h4>$stylist.getName()</h4></a>
+  <ul>
+    <li>Expertise: <em>$stylist.getExpertise()</em></li>
+    <li>Clients:
+      #foreach($client in $clients)
+        #if($client.getStylistId() == $stylist.getId())
+          <em> $client.getName(),</em>
+        #end
+      #end
+    </li>
+  </ul>
+#end

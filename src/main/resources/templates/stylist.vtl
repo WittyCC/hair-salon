@@ -1,0 +1,12 @@
+<h1>$stylist.getName()</h1>
+<p><em>$stylist.getExpertise()</em></p>
+
+<h3>Clients
+  <a href="/stylists/$stylist.getId()/clients/new"><button class="btn btn-warning" type="button">Assign new client</button></a>
+</h3>
+#foreach ($client in $clients)
+  <h4>$client.getName()</h4>
+  <ul>
+    <li>Contact Info: $client.getContact()</li>
+  </ul>
+#end
