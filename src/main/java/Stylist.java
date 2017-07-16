@@ -36,28 +36,44 @@ public class Stylist {
   }
 
   public static List<Stylist> all() {
-    String sql = "SELECT * FROM stylists";
     try(Connection con = DB.sql2o.open()) {
-     return con.createQuery(sql).executeAndFetch(Stylist.class);
+      String sql = "SELECT * FROM stylists";
+      return con.createQuery(sql).executeAndFetch(Stylist.class);
     }
   }
 
   public static Stylist find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM stylists where id=:id";
-      Stylist stylist = con.createQuery(sql)
+      return con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Stylist.class);
-      return stylist;
     }
   }
 
-  public List<Client> getClients() {
+  public static void update(int id, String name, String expertise) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM clients where stylistId=:id";
-      return con.createQuery(sql)
-        .addParameter("id", this.id)
-        .executeAndFetch(Client.class);
+      String sql = "UPDATE stylists SET name = :name, expertise = :expertise WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("id", id)
+        .addParameter("name", name)
+        .addParameter("expertise", expertise)
+        .executeUpdate();
+    }
+  }
+
+  public static void delete(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM clients WHERE stylistid = :id";
+      con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM stylists WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
     }
   }
 
